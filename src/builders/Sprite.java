@@ -12,6 +12,7 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
 public class Sprite {
@@ -95,7 +96,6 @@ public class Sprite {
 		this.yRes = yRes;
 	}
 	
-	
 	public Sprite(int xSquares, int ySquares, int xPos, int yPos, int zPos, float xRes, float yRes) {
 		this.xSquares = xSquares;
 		this.ySquares = ySquares;
@@ -127,14 +127,31 @@ public class Sprite {
 		glEnd();
 
 		glPopMatrix();
-		//glDeleteTextures(1);
+	}
+
+	private boolean down = false;
+	
+	public void addListener(int item, String key) {
+		if(item == 0) {
+			if(key.equals("LeftRelease")) {
+				if(Mouse.isButtonDown(0)) {
+					System.out.println("mouse down");
+					this.xRes = (210);
+					this.yRes = (53);
+					this.down = true;
+				}
+				while(Mouse.next()) {
+					if(Mouse.isButtonDown(0)) {
+						System.out.println("mouse down");
+						this.down = true;
+					}else { 
+						if(down) {
+							System.out.println("Mouse has been pressed");
+							this.down = false;
+						}
+					}
+				}
+			}
+		}
 	}
 }
-
-
-
-
-
-
-
-

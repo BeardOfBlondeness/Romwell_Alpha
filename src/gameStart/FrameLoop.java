@@ -15,6 +15,8 @@ import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
 import static org.lwjgl.opengl.GL11.glViewport;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -35,7 +37,7 @@ public class FrameLoop {
 	/**
 	 * Creates and loops the game.
 	 */
-	
+
 	private int FWIDTH = 900, FHEIGHT = 540; // Frame parameters
 	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // Screen size
 	private int WIDTH = (int) screenSize.getWidth(); // Screen width
@@ -45,14 +47,14 @@ public class FrameLoop {
 	private int mainStartPosx; // X start coordinate of viewport
 	private int mainStartPosy; // y start coordinate of viewport
 	private GameStance gs; // State of the game
-	
-	
+
+
 	public FrameLoop() { 
 		/**
 		 * Creates the frame.
 		 */
 		try {
-			
+
 			Display();
 			gs = new GameStance("menu");
 			Update();
@@ -61,12 +63,12 @@ public class FrameLoop {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void Display() {
 		/**
 		 * Set the display.
 		 */
-		
+
 		if(WIDTH > (HEIGHT/9)*16) {
 			trueWidth = (HEIGHT/9)*16;
 		} else {
@@ -75,14 +77,14 @@ public class FrameLoop {
 		mainStartPosx = (WIDTH - trueWidth)/2;
 		mainStartPosy = (HEIGHT - trueHeight)/2;
 		Display.setTitle("Romwell");
-		
+
 		try {
 			Display.setDisplayMode(new DisplayMode(FWIDTH, FHEIGHT));
 			Display.create();
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		
+
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, FWIDTH, FHEIGHT, 0, 1, -1);
@@ -97,7 +99,7 @@ public class FrameLoop {
 		/**
 		 * Starts the game loop.
 		 */
-		
+
 		while(!Display.isCloseRequested())
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
@@ -111,10 +113,11 @@ public class FrameLoop {
 			if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)== true) {
 				break;
 			}
+			System.out.println(Mouse.getX());
 		}
 		KillAllGame();
 	}
-	
+
 	public void KillAllGame() {
 		/**
 		 * Destroys the game.
@@ -122,36 +125,18 @@ public class FrameLoop {
 		Display.destroy();
 	}
 
-	
+
 	public void cursor() {
 		/**
 		 * Makes the cursor.
 		 */
-		BufferedImage img;
+		Cursor emptyCursor;
 		try {
-			img = ImageIO.read(new File("res/Game/Cursor.png"));
-		    final int w = img.getWidth();
-		    final int h = img.getHeight();
-
-		    int rgbData[] = new int[w * h];
-
-		    for (int i = 0; i < rgbData.length; i++)
-		    {
-		        int x = i % w;
-		        int y = h - 1 - i / w; // this will also flip the image vertically
-
-		        rgbData[i] = img.getRGB(x, y);
-		    }
-
-			
-		    IntBuffer buffer = BufferUtils.createIntBuffer(w * h);
-		    buffer.put(rgbData);
-		    buffer.rewind();
-			Cursor cursor = new Cursor(20, 20,0, 19, 1, buffer, null);
-			Mouse.setNativeCursor(cursor);
-		} catch (IOException | LWJGLException e1) {
+			emptyCursor = new Cursor(1, 1, 0, 0, 1, BufferUtils.createIntBuffer(1), null);
+			Mouse.setNativeCursor(emptyCursor);
+		} catch (LWJGLException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 }

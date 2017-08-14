@@ -1,5 +1,6 @@
 package stance;
 
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 import java.io.File;
 import javax.sound.sampled.AudioInputStream;
@@ -50,7 +51,6 @@ public class Menu {
 		loadBut = new Button(loadT);
 		settingsBut = new Button(settingsT);
 		exitBut = new Button(exitT);
-
 		try {
 			File yourFile = new File("res/menu/rain.wav");
 			AudioInputStream stream;
@@ -87,9 +87,10 @@ public class Menu {
 		this.tex = tex;
 		this.background = tex;
 	}
-	
-	private boolean hover = false;
 
+	private boolean hover = false;
+	private boolean down = false;
+	
 	public void drawButtons() {
 		newT.Draw(newTexture);
 		loadT.Draw(loadTexture);
@@ -98,19 +99,20 @@ public class Menu {
 
 		if(newBut.MakeButt()) {
 			if(!hover) {
+
+				newT.setxRes(220);
+				newT.setyRes(55);
+				newT.addListener(0, "LeftRelease");
 				loadT.setxRes(200);
 				loadT.setyRes(50);
 				settingsT.setxRes(200);
 				settingsT.setyRes(50);
 				exitT.setxRes(200);
 				exitT.setyRes(50);
-				newT.setxRes(220);
-				newT.setyRes(55);
 				hover = true;
 			} else {
 				hover = false;
 			}
-			
 		}else if(loadBut.MakeButt()) {
 			if(!hover) {
 				newT.setxRes(200);
@@ -121,6 +123,7 @@ public class Menu {
 				exitT.setyRes(50);
 				loadT.setxRes(220);
 				loadT.setyRes(55);
+				loadT.addListener(0, "LeftRelease");
 				hover = true;
 			}else {
 				hover = false;
@@ -135,6 +138,7 @@ public class Menu {
 				exitT.setyRes(50);
 				settingsT.setxRes(220);
 				settingsT.setyRes(55);
+				settingsT.addListener(0, "LeftRelease");
 				hover = true;
 			}else {
 				hover = false;
@@ -149,6 +153,7 @@ public class Menu {
 				settingsT.setyRes(50);
 				exitT.setxRes(220);
 				exitT.setyRes(55);
+				exitT.addListener(0, "LeftRelease");
 				hover = true;
 			}else {
 				hover = false;
@@ -168,7 +173,7 @@ public class Menu {
 				hover = true;
 			}
 		}
-
 	}
+
 
 }
