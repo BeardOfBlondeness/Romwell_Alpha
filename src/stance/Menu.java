@@ -10,26 +10,26 @@ import javax.sound.sampled.Clip;
 import builders.Button;
 import builders.Sprite;
 import javax.sound.sampled.*;
-import static builders.Paint.LoadTexture;
+import static builders.Paint.loadTexture;
 
 public class Menu {
 
+	private Sprite  bg;
 	private Texture background;
-	private Sprite bg;
 	private Texture tex;
 	private Texture exitTexture;
 	private Texture loadTexture;
 	private Texture newTexture;
 	private Texture settingsTexture;
 
-	private Sprite exitT;
-	private Sprite loadT;
-	private Sprite newT;
-	private Sprite settingsT;
-	private Button newBut;
-	private Button loadBut;
-	private Button settingsBut;
-	private Button exitBut;
+	private Sprite exitSprite;
+	private Sprite loadSprite;
+	private Sprite newSprite;
+	private Sprite settingsSprite;
+	private Button newButton;
+	private Button loadButton;
+	private Button settingsButton;
+	private Button exitButton;
 
 	public Menu(Texture tex) {
 
@@ -37,20 +37,20 @@ public class Menu {
 		this.setTex(tex);
 
 		bg = new Sprite(16, 9, 0, 0, 0, 900, 540);
-		exitTexture = LoadTexture("res/menu/Exit.png", "PNG");
-		loadTexture = LoadTexture("res/menu/LoadGame.png", "PNG");
-		newTexture = LoadTexture("res/menu/NewGame.png", "PNG");
-		settingsTexture = LoadTexture("res/menu/Settings.png", "PNG");
+		exitTexture = loadTexture("res/menu/Exit.png", "PNG");
+		loadTexture = loadTexture("res/menu/LoadGame.png", "PNG");
+		newTexture = loadTexture("res/menu/NewGame.png", "PNG");
+		settingsTexture = loadTexture("res/menu/Settings.png", "PNG");
 
-		newT = new Sprite(1, 1, 0, 300, 0, 200, 50);
-		loadT = new Sprite(1, 1, 0, 360, 0, 200, 50);
-		settingsT = new Sprite(1, 1, 0, 420, 0, 200, 50);
-		exitT = new Sprite(1, 1, 0, 480, 0, 200, 50);
+		newSprite = new Sprite(1, 1, 0, 300, 0, 200, 50);
+		loadSprite = new Sprite(1, 1, 0, 360, 0, 200, 50);
+		settingsSprite = new Sprite(1, 1, 0, 420, 0, 200, 50);
+		exitSprite = new Sprite(1, 1, 0, 480, 0, 200, 50);
 
-		newBut = new Button(newT);
-		loadBut = new Button(loadT);
-		settingsBut = new Button(settingsT);
-		exitBut = new Button(exitT);
+		newButton = new Button(newSprite);
+		loadButton = new Button(loadSprite);
+		settingsButton = new Button(settingsSprite);
+		exitButton = new Button(exitSprite);
 		try {
 			File yourFile = new File("res/menu/rain.wav");
 			AudioInputStream stream;
@@ -63,8 +63,7 @@ public class Menu {
 			info = new DataLine.Info(Clip.class, format);
 			clip = (Clip) AudioSystem.getLine(info);
 			clip.open(stream);
-			FloatControl gainControl = 
-					(FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 			gainControl.setValue(-20.0f);
 			clip.start();
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -75,7 +74,7 @@ public class Menu {
 	}
 
 	public void draw() {
-		bg.Draw(background);
+		bg.draw(background);
 		drawButtons();
 	}
 
@@ -90,84 +89,84 @@ public class Menu {
 
 	private boolean hover = false;
 	private boolean down = false;
-	
-	public void drawButtons() {
-		newT.Draw(newTexture);
-		loadT.Draw(loadTexture);
-		settingsT.Draw(settingsTexture);
-		exitT.Draw(exitTexture);
 
-		if(newBut.MakeButt()) {
+	public void drawButtons() {
+		newSprite.draw(newTexture);
+		loadSprite.draw(loadTexture);
+		settingsSprite.draw(settingsTexture);
+		exitSprite.draw(exitTexture);
+
+		if(newButton.makeButt()) {
 			if(!hover) {
 
-				newT.setxRes(220);
-				newT.setyRes(55);
-				newT.addListener(0, "LeftRelease");
-				loadT.setxRes(200);
-				loadT.setyRes(50);
-				settingsT.setxRes(200);
-				settingsT.setyRes(50);
-				exitT.setxRes(200);
-				exitT.setyRes(50);
+				newSprite.setxRes(220);
+				newSprite.setyRes(55);
+				newSprite.addListener(0, "LeftRelease");
+				loadSprite.setxRes(200);
+				loadSprite.setyRes(50);
+				settingsSprite.setxRes(200);
+				settingsSprite.setyRes(50);
+				exitSprite.setxRes(200);
+				exitSprite.setyRes(50);
 				hover = true;
 			} else {
 				hover = false;
 			}
-		}else if(loadBut.MakeButt()) {
+		}else if(loadButton.makeButt()) {
 			if(!hover) {
-				newT.setxRes(200);
-				newT.setyRes(50);
-				settingsT.setxRes(200);
-				settingsT.setyRes(50);
-				exitT.setxRes(200);
-				exitT.setyRes(50);
-				loadT.setxRes(220);
-				loadT.setyRes(55);
-				loadT.addListener(0, "LeftRelease");
+				newSprite.setxRes(200);
+				newSprite.setyRes(50);
+				settingsSprite.setxRes(200);
+				settingsSprite.setyRes(50);
+				exitSprite.setxRes(200);
+				exitSprite.setyRes(50);
+				loadSprite.setxRes(220);
+				loadSprite.setyRes(55);
+				loadSprite.addListener(0, "LeftRelease");
 				hover = true;
 			}else {
 				hover = false;
 			}
-		}else if(settingsBut.MakeButt()) {
+		}else if(settingsButton.makeButt()) {
 			if(!hover) {
-				newT.setxRes(200);
-				newT.setyRes(50);
-				loadT.setxRes(200);
-				loadT.setyRes(50);
-				exitT.setxRes(200);
-				exitT.setyRes(50);
-				settingsT.setxRes(220);
-				settingsT.setyRes(55);
-				settingsT.addListener(0, "LeftRelease");
+				newSprite.setxRes(200);
+				newSprite.setyRes(50);
+				loadSprite.setxRes(200);
+				loadSprite.setyRes(50);
+				exitSprite.setxRes(200);
+				exitSprite.setyRes(50);
+				settingsSprite.setxRes(220);
+				settingsSprite.setyRes(55);
+				settingsSprite.addListener(0, "LeftRelease");
 				hover = true;
 			}else {
 				hover = false;
 			}
-		}else if(exitBut.MakeButt()) {
+		}else if(exitButton.makeButt()) {
 			if(!hover) {
-				newT.setxRes(200);
-				newT.setyRes(50);
-				loadT.setxRes(200);
-				loadT.setyRes(50);
-				settingsT.setxRes(200);
-				settingsT.setyRes(50);
-				exitT.setxRes(220);
-				exitT.setyRes(55);
-				exitT.addListener(0, "LeftRelease");
+				newSprite.setxRes(200);
+				newSprite.setyRes(50);
+				loadSprite.setxRes(200);
+				loadSprite.setyRes(50);
+				settingsSprite.setxRes(200);
+				settingsSprite.setyRes(50);
+				exitSprite.setxRes(220);
+				exitSprite.setyRes(55);
+				exitSprite.addListener(0, "LeftRelease");
 				hover = true;
 			}else {
 				hover = false;
 			}
-		} else { 
+		} else {
 			if(hover) {
-				newT.setxRes(200);
-				newT.setyRes(50);
-				loadT.setxRes(200);
-				loadT.setyRes(50);
-				settingsT.setxRes(200);
-				settingsT.setyRes(50);
-				exitT.setxRes(200);
-				exitT.setyRes(50);
+				newSprite.setxRes(200);
+				newSprite.setyRes(50);
+				loadSprite.setxRes(200);
+				loadSprite.setyRes(50);
+				settingsSprite.setxRes(200);
+				settingsSprite.setyRes(50);
+				exitSprite.setxRes(200);
+				exitSprite.setyRes(50);
 				hover = false;
 			}else {
 				hover = true;

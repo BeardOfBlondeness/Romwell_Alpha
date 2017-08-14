@@ -51,7 +51,7 @@ public class Paint {
 	 */
 	public static Texture QuickLoad(String path) {
 		Texture tex = null;
-		tex = LoadTexture(path, "JPEG");
+		tex = loadTexture(path, "JPEG");
 		return tex;	
 	}
 
@@ -61,7 +61,7 @@ public class Paint {
 	 * @param fileType - Type of file (PNG,JPEG ...)
 	 * @return Texture object
 	 */
-	public static Texture LoadTexture(String path, String fileType) {
+	public static Texture loadTexture(String path, String fileType) {
 		Texture tex = null;
 		InputStream in = ResourceLoader.getResourceAsStream(path);
 		try {

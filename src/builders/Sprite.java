@@ -21,15 +21,15 @@ public class Sprite {
 	int xPos;
 	int yPos;
 	float xRes;
-    float yRes;
+    	float yRes;
 	static float RATIO = 1;
-    int zPos;
-	public static float getRATIO() {
+    	int zPos;
+	public static float getRatio() {
 		return RATIO;
 	}
 
-	public void setRATIO(float rATIO) {
-		RATIO = rATIO;
+	public void setRatio(float ratio) {
+		RATIO = ratio;
 	}
 
 	public int getzPos() {
@@ -106,7 +106,7 @@ public class Sprite {
 		this.zPos = zPos;
 	}
 	
-	public void Draw(Texture tex) {
+	public void draw(Texture tex) {
 		
 		//glClear(GL_COLOR_BUFFER_BIT);
 		glPushMatrix();

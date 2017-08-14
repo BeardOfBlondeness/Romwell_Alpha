@@ -31,7 +31,7 @@ public class Button {
 		this.activated = activated;
 	}
 
-	public boolean MakeButt() {
+	public boolean makeButt() {
 		if(rect.contains(Mouse.getX(), (540-Mouse.getY()))) {
 			return true;
 		}else {

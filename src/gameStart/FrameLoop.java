@@ -49,22 +49,22 @@ public class FrameLoop {
 	private GameStance gs; // State of the game
 
 
-	public FrameLoop() { 
+	public FrameLoop() {
 		/**
 		 * Creates the frame.
 		 */
 		try {
 
-			Display();
+			display();
 			gs = new GameStance("menu");
-			Update();
+			update();
 		} catch (LWJGLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public void Display() {
+	public void display() {
 		/**
 		 * Set the display.
 		 */
@@ -95,7 +95,7 @@ public class FrameLoop {
 		cursor();
 	}
 
-	public void Update() throws LWJGLException {
+	public void update() throws LWJGLException {
 		/**
 		 * Starts the game loop.
 		 */
@@ -103,7 +103,7 @@ public class FrameLoop {
 		while(!Display.isCloseRequested())
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
-			gs.CheckStance();
+			gs.checkStance();
 			if(Keyboard.isKeyDown(Keyboard.KEY_F2)== true) {
 				glViewport(mainStartPosx, mainStartPosy, trueWidth, trueHeight);
 				Display.setDisplayModeAndFullscreen(Display.getDesktopDisplayMode());
@@ -113,12 +113,11 @@ public class FrameLoop {
 			if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)== true) {
 				break;
 			}
-			System.out.println(Mouse.getX());
 		}
-		KillAllGame();
+		killAllGame();
 	}
 
-	public void KillAllGame() {
+	public void killAllGame() {
 		/**
 		 * Destroys the game.
 		 */
