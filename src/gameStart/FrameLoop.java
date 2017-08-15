@@ -22,7 +22,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.IntBuffer;
-
+import builders.Paint;
 import javax.imageio.ImageIO;
 
 import org.lwjgl.BufferUtils;
@@ -32,6 +32,9 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.newdawn.slick.opengl.Texture;
+
+import builders.Sprite;
 
 public class FrameLoop {
 	/**
@@ -46,9 +49,9 @@ public class FrameLoop {
 	private int trueHeight = HEIGHT; // Screen height full screen
 	private int mainStartPosx; // X start coordinate of viewport
 	private int mainStartPosy; // y start coordinate of viewport
-	private GameStance gs; // State of the game
-
-
+	public static GameStance gs; // State of the game
+	private Sprite cursorSprite;
+	private Texture cursorTexture;
 	public FrameLoop() {
 		/**
 		 * Creates the frame.
@@ -77,7 +80,7 @@ public class FrameLoop {
 		mainStartPosx = (WIDTH - trueWidth)/2;
 		mainStartPosy = (HEIGHT - trueHeight)/2;
 		Display.setTitle("Romwell");
-
+		cursorSprite = new Sprite(1, 1, 0, 0, 0, 20, 20);
 		try {
 			Display.setDisplayMode(new DisplayMode(FWIDTH, FHEIGHT));
 			Display.create();
@@ -93,6 +96,8 @@ public class FrameLoop {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		cursor();
+
+		cursorTexture = Paint.loadTexture("res/game/Cursor.png", "PNG");
 	}
 
 	public void update() throws LWJGLException {
@@ -104,6 +109,7 @@ public class FrameLoop {
 		{
 			glClear(GL_COLOR_BUFFER_BIT);
 			gs.checkStance();
+			paintCursor();
 			if(Keyboard.isKeyDown(Keyboard.KEY_F2)== true) {
 				glViewport(mainStartPosx, mainStartPosy, trueWidth, trueHeight);
 				Display.setDisplayModeAndFullscreen(Display.getDesktopDisplayMode());
@@ -117,11 +123,12 @@ public class FrameLoop {
 		killAllGame();
 	}
 
-	public void killAllGame() {
+	public static void killAllGame() {
 		/**
 		 * Destroys the game.
 		 */
 		Display.destroy();
+		System.exit(0);
 	}
 
 
@@ -137,5 +144,11 @@ public class FrameLoop {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void paintCursor() {
+		cursorSprite.setxPos(Mouse.getX());
+		cursorSprite.setyPos(FHEIGHT - Mouse.getY());
+		cursorSprite.draw(cursorTexture);
 	}
 }

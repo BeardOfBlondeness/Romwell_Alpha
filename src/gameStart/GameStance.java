@@ -46,9 +46,16 @@ public class GameStance {
 		switch(stance) {
 		case "menu":
 			frameCount=(frameCount+1)%3;
-			if(frameCount == 0) i=(i+1)%3;
+			if(frameCount == 0) i=(i+1)%8;
 			m.setTex(textures[i]);
 			m.draw();
+			break;
+		case "newGame":
+			System.out.println("New Game Started");
+		break;
+		default:
+			System.out.println("Default State");
+		break;
 		}
 	}
 }

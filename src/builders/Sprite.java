@@ -14,16 +14,16 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
-
+import gameStart.FrameLoop;
 public class Sprite {
 	int xSquares; 
 	int ySquares;
 	int xPos;
 	int yPos;
 	float xRes;
-    	float yRes;
+	float yRes;
 	static float RATIO = 1;
-    	int zPos;
+	int zPos;
 	public static float getRatio() {
 		return RATIO;
 	}
@@ -95,19 +95,19 @@ public class Sprite {
 	public void setyRes(int yRes) {
 		this.yRes = yRes;
 	}
-	
+
 	public Sprite(int xSquares, int ySquares, int xPos, int yPos, int zPos, float xRes, float yRes) {
 		this.xSquares = xSquares;
 		this.ySquares = ySquares;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.xRes = xRes;
-	    this.yRes = yRes;
+		this.yRes = yRes;
 		this.zPos = zPos;
 	}
-	
+
 	public void draw(Texture tex) {
-		
+
 		//glClear(GL_COLOR_BUFFER_BIT);
 		glPushMatrix();
 		tex.bind();
@@ -130,8 +130,8 @@ public class Sprite {
 	}
 
 	private boolean down = false;
-	
-	public void addListener(int item, String key) {
+
+	public void addListener(int item, String key, String buttonAction) {
 		if(item == 0) {
 			if(key.equals("LeftRelease")) {
 				if(Mouse.isButtonDown(0)) {
@@ -147,6 +147,17 @@ public class Sprite {
 					}else { 
 						if(down) {
 							System.out.println("Mouse has been pressed");
+							switch(buttonAction) {
+							case "newGame":
+								FrameLoop.gs.setStance("newGame");
+								break;
+							case "exit":
+								FrameLoop.killAllGame();
+								break;
+							default:
+								FrameLoop.gs.setStance("menu");
+								break;
+							}
 							this.down = false;
 						}
 					}

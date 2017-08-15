@@ -98,10 +98,9 @@ public class Menu {
 
 		if(newButton.makeButt()) {
 			if(!hover) {
-
 				newSprite.setxRes(220);
 				newSprite.setyRes(55);
-				newSprite.addListener(0, "LeftRelease");
+				newSprite.addListener(0, "LeftRelease", "newGame");
 				loadSprite.setxRes(200);
 				loadSprite.setyRes(50);
 				settingsSprite.setxRes(200);
@@ -122,7 +121,7 @@ public class Menu {
 				exitSprite.setyRes(50);
 				loadSprite.setxRes(220);
 				loadSprite.setyRes(55);
-				loadSprite.addListener(0, "LeftRelease");
+				loadSprite.addListener(0, "LeftRelease", "loadGame");
 				hover = true;
 			}else {
 				hover = false;
@@ -137,7 +136,7 @@ public class Menu {
 				exitSprite.setyRes(50);
 				settingsSprite.setxRes(220);
 				settingsSprite.setyRes(55);
-				settingsSprite.addListener(0, "LeftRelease");
+				settingsSprite.addListener(0, "LeftRelease", "settings");
 				hover = true;
 			}else {
 				hover = false;
@@ -152,7 +151,7 @@ public class Menu {
 				settingsSprite.setyRes(50);
 				exitSprite.setxRes(220);
 				exitSprite.setyRes(55);
-				exitSprite.addListener(0, "LeftRelease");
+				exitSprite.addListener(0, "LeftRelease", "exit");
 				hover = true;
 			}else {
 				hover = false;
