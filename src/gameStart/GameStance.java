@@ -1,7 +1,7 @@
 package gameStart;
 
 import static builders.Paint.loadTexture;
-
+import stance.newGame.TitleSequence;
 import org.newdawn.slick.opengl.Texture;
 
 import stance.Menu;
@@ -41,7 +41,10 @@ public class GameStance {
 	public void setStance(String stance) {
 		this.stance = stance;
 	}
-
+	
+	private boolean newGame = true;
+	private TitleSequence title;
+	
 	public void checkStance() {
 		switch(stance) {
 		case "menu":
@@ -51,7 +54,12 @@ public class GameStance {
 			m.draw();
 			break;
 		case "newGame":
-			System.out.println("New Game Started");
+			if(newGame) {
+				title = new TitleSequence();
+				newGame = false;
+			} else { 
+				title.runTitleSequence();
+			}
 		break;
 		case "exit":
 			FrameLoop.killAllGame();

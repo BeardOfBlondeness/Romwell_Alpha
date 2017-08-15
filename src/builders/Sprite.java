@@ -3,8 +3,8 @@ package builders;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
-
 import static org.lwjgl.opengl.GL11.glColor3f;
+import static org.lwjgl.opengl.GL11.glColor4f;
 import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
@@ -128,7 +128,47 @@ public class Sprite {
 
 		glPopMatrix();
 	}
-
+	
+	private float alpha = 0;
+	private boolean fadeIn = true;
+	private boolean fadeFinish = false;
+	public void drawFade(Texture tex) {
+		glPushMatrix();
+		tex.bind();
+		glTranslatef(xPos, yPos, zPos);		
+		glColor4f(1,2,3,alpha);
+		glBegin(GL_QUADS);
+		{
+			glTexCoord2f(0, 0);
+			glVertex2f(0, 0);
+			glTexCoord2f(0, tex.getHeight());
+			glVertex2f(0, yRes);
+			glTexCoord2f(tex.getWidth(), tex.getHeight());
+			glVertex2f(xRes,yRes);
+			glTexCoord2f(tex.getWidth(), 0);
+			glVertex2f(xRes,0);
+		}
+		glEnd();
+		glPopMatrix();
+		doubleFadeAlpha();
+	}
+	
+	public void doubleFadeAlpha() {
+		if(!fadeFinish) { 
+			if(alpha <= 1.2 && fadeIn) {
+				alpha+=0.005;
+			}else if(alpha >= -0.05){
+				fadeIn = false;
+				alpha-=0.005;
+			} else {
+				fadeFinish = true;
+			}
+		} 
+	}
+	
+	public boolean checkFadeStop() { 
+		return fadeFinish;
+	}
 	private boolean down = false;
 
 	public void addListener(int item, String key, String buttonAction) {
