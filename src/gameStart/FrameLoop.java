@@ -91,6 +91,7 @@ public class FrameLoop {
 
 		cursorTexture = Paint.loadTexture("res/game/Cursor.png", "PNG");
 	}
+	private boolean fullScreen = false;
 
 	public void update() throws LWJGLException {
 		/**
@@ -99,12 +100,22 @@ public class FrameLoop {
 
 		while(!Display.isCloseRequested())
 		{
+
 			glClear(GL_COLOR_BUFFER_BIT);
 			gs.checkStance();
 			paintCursor();
 			if(Keyboard.isKeyDown(Keyboard.KEY_F2)== true) {
 				glViewport(mainStartPosx, mainStartPosy, trueWidth, trueHeight);
 				Display.setDisplayModeAndFullscreen(Display.getDesktopDisplayMode());
+				fullScreen = true;
+			}
+			if(fullScreen) {
+				if(Mouse.getX() > 900) {
+					Mouse.setCursorPosition(900, Mouse.getY());
+				}
+				if(Mouse.getY() > 540) {
+					Mouse.setCursorPosition(Mouse.getX(), 540);
+				}
 			}
 			Display.update();
 			Display.sync(60);
