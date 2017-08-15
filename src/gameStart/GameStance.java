@@ -53,6 +53,9 @@ public class GameStance {
 		case "newGame":
 			System.out.println("New Game Started");
 		break;
+		case "exit":
+			FrameLoop.killAllGame();
+			break;
 		default:
 			System.out.println("Default State");
 		break;

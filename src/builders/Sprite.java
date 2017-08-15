@@ -147,17 +147,7 @@ public class Sprite {
 					}else { 
 						if(down) {
 							System.out.println("Mouse has been pressed");
-							switch(buttonAction) {
-							case "newGame":
-								FrameLoop.gs.setStance("newGame");
-								break;
-							case "exit":
-								FrameLoop.killAllGame();
-								break;
-							default:
-								FrameLoop.gs.setStance("menu");
-								break;
-							}
+							FrameLoop.gs.setStance(buttonAction);
 							this.down = false;
 						}
 					}
