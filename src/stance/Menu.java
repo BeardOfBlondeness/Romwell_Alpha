@@ -1,6 +1,5 @@
 package stance;
 
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 import java.io.File;
 import javax.sound.sampled.AudioInputStream;
@@ -88,7 +87,6 @@ public class Menu {
 	}
 
 	private boolean hover = false;
-	private boolean down = false;
 
 	public void drawButtons() {
 		newSprite.draw(newTexture);
