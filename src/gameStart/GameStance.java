@@ -45,13 +45,16 @@ public class GameStance {
 	private boolean newGame = true;
 	private TitleSequence title;
 	
+	public void limitRenderFrames() {
+		frameCount=(frameCount+1)%3;
+		if(frameCount == 0) i=(i+1)%8;
+		m.setTex(textures[i]);
+		m.draw();
+	}
 	public void checkStance() {
 		switch(stance) {
 		case "menu":
-			frameCount=(frameCount+1)%3;
-			if(frameCount == 0) i=(i+1)%8;
-			m.setTex(textures[i]);
-			m.draw();
+			limitRenderFrames();
 			break;
 		case "newGame":
 			if(newGame) {
