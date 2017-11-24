@@ -117,8 +117,6 @@ public class Sprite {
 	}
 
 	public void draw(Texture tex) {
-
-		//glClear(GL_COLOR_BUFFER_BIT);
 		glPushMatrix();
 		tex.bind();
 		glTranslatef(xPos, yPos, zPos);		
@@ -135,6 +133,33 @@ public class Sprite {
 		glPopMatrix();
 	}
 
+	/*
+	 * Don't judge me I'm lazy
+	 */
+	public void drawSelection(Texture tex, int posX, int posY, int sizeX, int sizeY) {
+		
+		float startX = posX/tex.getWidth();
+		float startY = posY/tex.getHeight();
+		
+		float endX = posX+(sizeX/tex.getWidth());
+		float endY = posY+(sizeY/tex.getHeight());
+		glPushMatrix();
+		tex.bind();
+		glTranslatef(xPos, yPos, zPos);		
+		glColor3f(1,1,1);
+		glBegin(GL_QUADS);
+		{
+			glTexCoord2f(startX, startY);                 	 glVertex2f(0, 0);
+			glTexCoord2f(startX, endY);   					 glVertex2f(0, yRes);
+			glTexCoord2f(endX, endY); 						 glVertex2f(xRes,yRes);
+			glTexCoord2f(endX, startY);						 glVertex2f(xRes,0);
+		}
+		glEnd();
+
+		glPopMatrix();
+	}
+	
+	
 	private float alpha = 0;
 	private boolean fadeIn = true;
 	private boolean fadeFinish = false;

@@ -13,6 +13,7 @@ public class NewGameSetup {
 
 	private static boolean boxSelected = false;
 	private static boolean firstCall = true;
+	private static boolean drawText = false;
 	private static Texture flickerTex;
 	private static Texture boxTex;
 	private static Sprite textBox;
@@ -21,8 +22,8 @@ public class NewGameSetup {
 	private static TextOutput text;
 	private static int fCount = 0;
 	private static boolean keyDown = false;
-
-
+	private static int charPos;
+	
 	public static void createGameFile() {
 		if(firstCall) {
 			generateSprites();
@@ -30,6 +31,9 @@ public class NewGameSetup {
 		} else {
 			textBox.draw(boxTex);
 			createBoxListener();
+			if(drawText) {
+				text.drawChar(charPos, flickerLine.getxPos());
+			}
 		}
 	}
 
@@ -74,8 +78,12 @@ public class NewGameSetup {
 	public static void beginKeyboardListeners() {
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			keyDown = true;
-			System.out.println("A");
+			charPos = 0;
+		}else if(keyDown) {
+			keyDown = false;
+			drawText = true;
 		}
 		
 	}
+	
 }
