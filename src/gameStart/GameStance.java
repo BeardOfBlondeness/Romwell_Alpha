@@ -51,6 +51,7 @@ public class GameStance {
 		m.setTex(textures[i]);
 		m.draw();
 	}
+	
 	public void checkStance() {
 		switch(stance) {
 		case "menu":

@@ -18,7 +18,7 @@ public class TitleSequence {
 		if(!titleSprite.checkFadeStop()) {
 			titleSprite.drawFade(titleTexture);
 		}else {
-			System.out.println("Fade Ended");
+			NewGameSetup.createGameFile();
 		}
 	}
 }

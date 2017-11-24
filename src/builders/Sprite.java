@@ -12,6 +12,15 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
+import java.io.File;
+
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 import gameStart.FrameLoop;
@@ -24,6 +33,7 @@ public class Sprite {
 	float yRes;
 	static float RATIO = 1;
 	int zPos;
+	
 	public static float getRatio() {
 		return RATIO;
 	}
@@ -128,10 +138,11 @@ public class Sprite {
 
 		glPopMatrix();
 	}
-	
+
 	private float alpha = 0;
 	private boolean fadeIn = true;
 	private boolean fadeFinish = false;
+	
 	public void drawFade(Texture tex) {
 		glPushMatrix();
 		tex.bind();
@@ -152,7 +163,7 @@ public class Sprite {
 		glPopMatrix();
 		doubleFadeAlpha();
 	}
-	
+
 	public void doubleFadeAlpha() {
 		if(!fadeFinish) { 
 			if(alpha <= 1.2 && fadeIn) {
@@ -165,34 +176,9 @@ public class Sprite {
 			}
 		} 
 	}
-	
+
 	public boolean checkFadeStop() { 
 		return fadeFinish;
 	}
-	private boolean down = false;
 
-	public void addListener(int item, String key, String buttonAction) {
-		if(item == 0) {
-			if(key.equals("LeftRelease")) {
-				if(Mouse.isButtonDown(0)) {
-					System.out.println("mouse down");
-					this.xRes = (210);
-					this.yRes = (53);
-					this.down = true;
-				}
-				while(Mouse.next()) {
-					if(Mouse.isButtonDown(0)) {
-						System.out.println("mouse down");
-						this.down = true;
-					}else { 
-						if(down) {
-							System.out.println("Mouse has been pressed");
-							FrameLoop.gs.setStance(buttonAction);
-							this.down = false;
-						}
-					}
-				}
-			}
-		}
-	}
 }

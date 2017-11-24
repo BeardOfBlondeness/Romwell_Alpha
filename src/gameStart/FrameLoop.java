@@ -44,6 +44,7 @@ public class FrameLoop {
 	public static GameStance gs; // State of the game
 	private Sprite cursorSprite;
 	private Texture cursorTexture;
+	
 	public FrameLoop() {
 		/**
 		 * Creates the frame.
@@ -100,26 +101,17 @@ public class FrameLoop {
 
 		while(!Display.isCloseRequested())
 		{
-
 			glClear(GL_COLOR_BUFFER_BIT);
 			gs.checkStance();
 			paintCursor();
-			if(Keyboard.isKeyDown(Keyboard.KEY_F2)== true) {
-				glViewport(mainStartPosx, mainStartPosy, trueWidth, trueHeight);
-				Display.setDisplayModeAndFullscreen(Display.getDesktopDisplayMode());
-				fullScreen = true;
-			}
+			mainKeyListeners();
 			if(fullScreen) {
-				if(Mouse.getX() > 900) {
-					Mouse.setCursorPosition(900, Mouse.getY());
-				}
-				if(Mouse.getY() > 540) {
-					Mouse.setCursorPosition(Mouse.getX(), 540);
-				}
+				holdFullScreenMouse();
+
 			}
 			Display.update();
 			Display.sync(60);
-			if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)== true) {
+			if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				break;
 			}
 		}
@@ -130,11 +122,20 @@ public class FrameLoop {
 		/**
 		 * Destroys the game.
 		 */
+		System.out.println("Jacob woz 'ere");
 		Display.destroy();
 		System.exit(0);
 	}
 
-
+	public void holdFullScreenMouse() {
+		if(Mouse.getX() > 900) {
+			Mouse.setCursorPosition(900, Mouse.getY());
+		}
+		if(Mouse.getY() > 540) {
+			Mouse.setCursorPosition(Mouse.getX(), 540);
+		}
+	}
+	
 	public void cursor() {
 		/**
 		 * Makes the cursor.
@@ -153,5 +154,18 @@ public class FrameLoop {
 		cursorSprite.setxPos(Mouse.getX());
 		cursorSprite.setyPos(FHEIGHT - Mouse.getY());
 		cursorSprite.draw(cursorTexture);
+	}
+	
+	public void mainKeyListeners() {
+		if(Keyboard.isKeyDown(Keyboard.KEY_F2)== true) {
+			glViewport(mainStartPosx, mainStartPosy, trueWidth, trueHeight);
+			try {
+				Display.setDisplayModeAndFullscreen(Display.getDesktopDisplayMode());
+			} catch (LWJGLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			fullScreen = true;
+		}
 	}
 }

@@ -2,12 +2,11 @@ package stance;
 
 import org.newdawn.slick.opengl.Texture;
 import java.io.File;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
 import builders.Button;
 import builders.Sprite;
+import gameStart.FrameLoop;
+
 import javax.sound.sampled.*;
 import static builders.Paint.loadTexture;
 
@@ -50,6 +49,10 @@ public class Menu {
 		loadButton = new Button(loadSprite);
 		settingsButton = new Button(settingsSprite);
 		exitButton = new Button(exitSprite);
+		runAudio();
+	}
+	
+	public void runAudio() {
 		try {
 			File yourFile = new File("res/menu/rain.wav");
 			AudioInputStream stream;
@@ -87,25 +90,22 @@ public class Menu {
 	}
 
 	private boolean hover = false;
-
-	public void drawButtons() {
-		newSprite.draw(newTexture);
-		loadSprite.draw(loadTexture);
-		settingsSprite.draw(settingsTexture);
-		exitSprite.draw(exitTexture);
-
+	
+	public void checkHover() {
 		if(newButton.makeButt()) {
 			if(!hover) {
 				newSprite.setxRes(220);
 				newSprite.setyRes(55);
-				newSprite.addListener(0, "LeftRelease", "newGame");
 				loadSprite.setxRes(200);
 				loadSprite.setyRes(50);
 				settingsSprite.setxRes(200);
 				settingsSprite.setyRes(50);
 				exitSprite.setxRes(200);
 				exitSprite.setyRes(50);
-				hover = true;
+				newButton.addListener(0, "LeftRelease", true);
+				if(newButton.isClicked()) {
+					FrameLoop.gs.setStance("newGame");
+				}
 			} else {
 				hover = false;
 			}
@@ -119,7 +119,10 @@ public class Menu {
 				exitSprite.setyRes(50);
 				loadSprite.setxRes(220);
 				loadSprite.setyRes(55);
-				loadSprite.addListener(0, "LeftRelease", "loadGame");
+				loadButton.addListener(0, "LeftRelease", true);
+				if(loadButton.isClicked()) {
+					FrameLoop.gs.setStance("loadGame");
+				}
 				hover = true;
 			}else {
 				hover = false;
@@ -134,7 +137,10 @@ public class Menu {
 				exitSprite.setyRes(50);
 				settingsSprite.setxRes(220);
 				settingsSprite.setyRes(55);
-				settingsSprite.addListener(0, "LeftRelease", "settings");
+				settingsButton.addListener(0, "LeftRelease", true);
+				if(settingsButton.isClicked()) {
+					FrameLoop.gs.setStance("settings");
+				}
 				hover = true;
 			}else {
 				hover = false;
@@ -149,7 +155,10 @@ public class Menu {
 				settingsSprite.setyRes(50);
 				exitSprite.setxRes(220);
 				exitSprite.setyRes(55);
-				exitSprite.addListener(0, "LeftRelease", "exit");
+				exitButton.addListener(0, "LeftRelease", true);
+				if(exitButton.isClicked()) {
+					FrameLoop.gs.setStance("exit");
+				}
 				hover = true;
 			}else {
 				hover = false;
@@ -169,6 +178,14 @@ public class Menu {
 				hover = true;
 			}
 		}
+	}
+	
+	public void drawButtons() {
+		newSprite.draw(newTexture);
+		loadSprite.draw(loadTexture);
+		settingsSprite.draw(settingsTexture);
+		exitSprite.draw(exitTexture);
+		checkHover();
 	}
 
 
