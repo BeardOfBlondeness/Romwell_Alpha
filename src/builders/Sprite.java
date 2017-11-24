@@ -125,14 +125,10 @@ public class Sprite {
 		glColor3f(1,1,1);
 		glBegin(GL_QUADS);
 		{
-			glTexCoord2f(0, 0);
-			glVertex2f(0, 0);
-			glTexCoord2f(0, tex.getHeight());
-			glVertex2f(0, yRes);
-			glTexCoord2f(tex.getWidth(), tex.getHeight());
-			glVertex2f(xRes,yRes);
-			glTexCoord2f(tex.getWidth(), 0);
-			glVertex2f(xRes,0);
+			glTexCoord2f(0, 0);                 			 glVertex2f(0, 0);
+			glTexCoord2f(0, tex.getHeight());   			 glVertex2f(0, yRes);
+			glTexCoord2f(tex.getWidth(), tex.getHeight()); 	 glVertex2f(xRes,yRes);
+			glTexCoord2f(tex.getWidth(), 0);				 glVertex2f(xRes,0);
 		}
 		glEnd();
 
