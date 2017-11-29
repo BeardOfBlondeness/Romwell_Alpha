@@ -141,8 +141,8 @@ public class Sprite {
 		float startX = posX/tex.getWidth();
 		float startY = posY/tex.getHeight();
 		
-		float endX = posX+(sizeX/tex.getWidth());
-		float endY = posY+(sizeY/tex.getHeight());
+		float endX = (float) (startX+0.027);
+		float endY = (float) 1;//posY+(sizeY/tex.getHeight());
 		glPushMatrix();
 		tex.bind();
 		glTranslatef(xPos, yPos, zPos);		
@@ -150,9 +150,9 @@ public class Sprite {
 		glBegin(GL_QUADS);
 		{
 			glTexCoord2f(startX, startY);                 	 glVertex2f(0, 0);
-			glTexCoord2f(startX, endY);   					 glVertex2f(0, yRes);
-			glTexCoord2f(endX, endY); 						 glVertex2f(xRes,yRes);
-			glTexCoord2f(endX, startY);						 glVertex2f(xRes,0);
+			glTexCoord2f(startX, endY);   					 glVertex2f(0, sizeY);
+			glTexCoord2f(endX, endY); 						 glVertex2f(sizeX-10, sizeY);
+			glTexCoord2f(endX, startY);						 glVertex2f(sizeX,0);
 		}
 		glEnd();
 

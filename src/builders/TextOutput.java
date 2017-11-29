@@ -22,6 +22,6 @@ public class TextOutput {
 		int selectX = 100*charPos;
 		
 		
-		chara.drawSelection(alphabet, charPos, 0, 100, 100);
+		chara.drawSelection(alphabet, selectX, 0, 100, 100);
 	}
 }

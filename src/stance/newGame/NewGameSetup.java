@@ -44,7 +44,7 @@ public class NewGameSetup {
 		textBox = new Sprite(0, 0, 200, 205, 0, 500, 130);
 		textButt = new Button(textBox);
 		
-		text = new TextOutput(210, 215, 110);
+		text = new TextOutput(210, 225, 110);
 	}
 
 	public static void createBoxListener() {
@@ -78,7 +78,7 @@ public class NewGameSetup {
 	public static void beginKeyboardListeners() {
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			keyDown = true;
-			charPos = 0;
+			charPos = 1;
 		}else if(keyDown) {
 			keyDown = false;
 			drawText = true;
