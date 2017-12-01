@@ -25,14 +25,15 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 import gameStart.FrameLoop;
 public class Sprite {
+	
 	int xSquares; 
 	int ySquares;
 	int xPos;
 	int yPos;
+	int zPos;
 	float xRes;
 	float yRes;
 	static float RATIO = 1;
-	int zPos;
 	private float alpha = 0;
 	private boolean fadeIn = true;
 	private static boolean fadeFinish = false;
