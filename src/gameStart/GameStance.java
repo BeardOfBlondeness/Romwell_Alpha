@@ -52,6 +52,9 @@ public class GameStance {
 		m.draw();
 	}
 	
+	public TitleSequence getTitleSequence() {
+		return title;
+	}
 	public void checkStance() {
 		switch(stance) {
 		case "menu":

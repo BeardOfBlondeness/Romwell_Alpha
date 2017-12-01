@@ -6,7 +6,9 @@ public class boot {
 	 * @param args - Arguments for main.
 	 */
 	public static void main(String[] args) { 
+		dev.DevConsole.beginDevConsole();
 		new FrameLoop();
+		
 	}
 	
 }

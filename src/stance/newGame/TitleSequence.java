@@ -14,6 +14,9 @@ public class TitleSequence {
 		this.titleTexture = Paint.loadTexture("res/title/TitleLogo.bmp", "BMP");
 	}
 
+	public Sprite getTitleSprite() {
+		return titleSprite;
+	}
 	public void runTitleSequence() {
 		if(!titleSprite.checkFadeStop()) {
 			titleSprite.drawFade(titleTexture);

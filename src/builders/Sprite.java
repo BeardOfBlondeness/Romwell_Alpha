@@ -33,7 +33,13 @@ public class Sprite {
 	float yRes;
 	static float RATIO = 1;
 	int zPos;
+	private float alpha = 0;
+	private boolean fadeIn = true;
+	private static boolean fadeFinish = false;
 	
+	public static void setFadeFinish(boolean a) {
+		fadeFinish = a;
+	}
 	public static float getRatio() {
 		return RATIO;
 	}
@@ -138,11 +144,10 @@ public class Sprite {
 	 */
 	public void drawSelection(Texture tex, int posX, int posY, int sizeX, int sizeY) {
 		
-		float startX = posX/tex.getWidth();
-		float startY = posY/tex.getHeight();
-		
-		float endX = (float) (startX+0.027);
-		float endY = (float) 1;//posY+(sizeY/tex.getHeight());
+		float startX = ((float)posX/(float)tex.getImageWidth())*tex.getWidth();
+		float startY = ((float)posY/(float)tex.getImageHeight())*tex.getHeight();
+		float endX = (startX+(((float)sizeX/(float)tex.getImageWidth())*tex.getWidth()));
+		float endY = (startY+((float)sizeY/(float)tex.getImageHeight())*tex.getHeight());//posY+(sizeY/tex.getHeight());
 		glPushMatrix();
 		tex.bind();
 		glTranslatef(xPos, yPos, zPos);		
@@ -151,7 +156,7 @@ public class Sprite {
 		{
 			glTexCoord2f(startX, startY);                 	 glVertex2f(0, 0);
 			glTexCoord2f(startX, endY);   					 glVertex2f(0, sizeY);
-			glTexCoord2f(endX, endY); 						 glVertex2f(sizeX-10, sizeY);
+			glTexCoord2f(endX, endY); 						 glVertex2f(sizeX, sizeY);
 			glTexCoord2f(endX, startY);						 glVertex2f(sizeX,0);
 		}
 		glEnd();
@@ -160,9 +165,7 @@ public class Sprite {
 	}
 	
 	
-	private float alpha = 0;
-	private boolean fadeIn = true;
-	private boolean fadeFinish = false;
+
 	
 	public void drawFade(Texture tex) {
 		glPushMatrix();

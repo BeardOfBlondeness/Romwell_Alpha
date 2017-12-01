@@ -122,7 +122,6 @@ public class FrameLoop {
 		/**
 		 * Destroys the game.
 		 */
-		System.out.println("Jacob woz 'ere");
 		Display.destroy();
 		System.exit(0);
 	}
