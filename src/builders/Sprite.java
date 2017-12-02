@@ -143,7 +143,7 @@ public class Sprite {
 	/*
 	 * Don't judge me I'm lazy
 	 */
-	public void drawSelection(Texture tex, int posX, int posY, int sizeX, int sizeY) {
+	public void drawSelection(Texture tex, int posX, int posY, int sizeX, int sizeY, int drawSizeX, int drawSizeY) {
 		
 		float startX = ((float)posX/(float)tex.getImageWidth())*tex.getWidth();
 		float startY = ((float)posY/(float)tex.getImageHeight())*tex.getHeight();
@@ -156,9 +156,9 @@ public class Sprite {
 		glBegin(GL_QUADS);
 		{
 			glTexCoord2f(startX, startY);                 	 glVertex2f(0, 0);
-			glTexCoord2f(startX, endY);   					 glVertex2f(0, sizeY);
-			glTexCoord2f(endX, endY); 						 glVertex2f(sizeX, sizeY);
-			glTexCoord2f(endX, startY);						 glVertex2f(sizeX,0);
+			glTexCoord2f(startX, endY);   					 glVertex2f(0, drawSizeY);
+			glTexCoord2f(endX, endY); 						 glVertex2f(drawSizeX, drawSizeY);
+			glTexCoord2f(endX, startY);						 glVertex2f(drawSizeX,0);
 		}
 		glEnd();
 
