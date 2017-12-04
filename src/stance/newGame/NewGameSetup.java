@@ -19,6 +19,7 @@ public class NewGameSetup {
 			generateSprites();
 			firstCall = false;
 		} else {
+			gameStart.FrameLoop.gs.limitRenderFrames(false);
 			text.drawText();
 			
 		}

@@ -4,6 +4,7 @@ import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.opengl.Texture;
 
 public class TextOutput {
+	
 	private boolean a = false;
 	private boolean b = false;
 	private boolean c = false;
@@ -31,9 +32,11 @@ public class TextOutput {
 	private boolean y = false;
 	private boolean z = false;
 	private boolean back = false;
+	private boolean enter = false;
 	private boolean keyDown = false;
 	private boolean draw = false;
 	private boolean boxSelected = false;
+	private boolean backStart = true;
 	private int index = 0;
 	private int fontSize;
 	private int fCount = 0;
@@ -45,7 +48,7 @@ public class TextOutput {
 	private Texture alphabet;
 	private Texture flickerTex;
 	private Texture boxTex;
-	
+	private long beginTime;
 	public TextOutput(int fontSize, String boxTexPath, String font, int boxX, int boxY, int boxSizeX, int boxSizeY) {
 		this.fontSize = fontSize;
 		this.alphabet = Paint.loadTexture("res/builders/alphabet_" + font + ".png", "PNG");
@@ -54,10 +57,10 @@ public class TextOutput {
 		this.flickerLine = new Sprite(0, 0, boxX+(boxSizeX/40), (boxY+boxSizeY/10), 0, fontSize/20, fontSize);
 		this.textBox = new Sprite(0, 0, boxX, boxY, 0, boxSizeX, boxSizeY);
 		this.textButt = new Button(textBox);
-		this.text = new Sprite[16];
-		this.charPos = new int[16];
+		this.text = new Sprite[11];
+		this.charPos = new int[11];
 		
-		for(int gen = 0; gen < 16; gen++) {
+		for(int gen = 0; gen < 11; gen++) {
 			text[gen] = new Sprite(1, 1, flickerLine.getxPos(), flickerLine.getyPos(), 0, fontSize, fontSize);
 		}
 	}
@@ -65,7 +68,7 @@ public class TextOutput {
 	public void drawText() {
 		textBox.draw(boxTex);
 		createBoxListener();
-		if(draw && index < 15) {
+		if(draw && index < 11) {
 			for(int count = 0; count < index; count++) {
 				text[count].drawSelection(this.alphabet, 100*charPos[count], 0, 100, 100, fontSize, fontSize);
 			}
@@ -100,16 +103,23 @@ public class TextOutput {
 		fCount++;
 	}
 	
+	public void processKey(int charaPos) {
+		if(index < 10) {
+			charPos[index] = charaPos;
+			text[index].setxPos(flickerLine.getxPos());
+			index++;
+			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+		}
+		
+	}
+	
 	public void beginKeyboardListeners() {
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			keyDown = true;
 			a = true;
 		} else if(a) {
 			a = false;
-			charPos[index] = 0;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(0);
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_B)){
@@ -117,10 +127,7 @@ public class TextOutput {
 			b = true;
 		} else if(b) {
 			b = false;
-			charPos[index] = 1;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(1);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_C)){
@@ -128,10 +135,7 @@ public class TextOutput {
 			c = true;
 		} else if(c) {
 			c = false;
-			charPos[index] = 2;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(2);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)){
@@ -139,10 +143,7 @@ public class TextOutput {
 			d = true;
 		} else if(d) {
 			d = false;
-			charPos[index] = 3;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(3);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_E)){
@@ -150,10 +151,7 @@ public class TextOutput {
 			e = true;
 		} else if(e) {
 			e = false;
-			charPos[index] = 4;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(4);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_F)){
@@ -161,10 +159,7 @@ public class TextOutput {
 			f = true;
 		} else if(f) {
 			f = false;
-			charPos[index] = 5;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(5);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_G)){
@@ -172,10 +167,7 @@ public class TextOutput {
 			g = true;
 		} else if(g) {
 			g = false;
-			charPos[index] = 6;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(6);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_H)){
@@ -183,10 +175,7 @@ public class TextOutput {
 			h = true;
 		} else if(h) {
 			h = false;
-			charPos[index] = 7;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(7);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_I)){
@@ -194,10 +183,7 @@ public class TextOutput {
 			i = true;
 		} else if(i) {
 			i = false;
-			charPos[index] = 8;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(8);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_J)){
@@ -205,10 +191,7 @@ public class TextOutput {
 			j = true;
 		} else if(j) {
 			j = false;
-			charPos[index] = 9;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(9);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_K)){
@@ -216,10 +199,7 @@ public class TextOutput {
 			k = true;
 		} else if(k) {
 			k = false;
-			charPos[index] = 10;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(10);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_L)){
@@ -227,10 +207,7 @@ public class TextOutput {
 			l = true;
 		} else if(l) {
 			l = false;
-			charPos[index] = 11;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(11);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_M)){
@@ -238,10 +215,7 @@ public class TextOutput {
 			m = true;
 		} else if(m) {
 			m = false;
-			charPos[index] = 12;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(12);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_N)){
@@ -249,10 +223,7 @@ public class TextOutput {
 			n = true;
 		} else if(n) {
 			n = false;
-			charPos[index] = 13;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(13);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_O)){
@@ -260,10 +231,7 @@ public class TextOutput {
 			o = true;
 		} else if(o) {
 			o = false;
-			charPos[index] = 14;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(14);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_P)){
@@ -271,10 +239,7 @@ public class TextOutput {
 			p = true;
 		} else if(p) {
 			p = false;
-			charPos[index] = 15;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(15);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_Q)){
@@ -282,10 +247,7 @@ public class TextOutput {
 			q = true;
 		} else if(q) {
 			q = false;
-			charPos[index] = 16;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(16);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_R)){
@@ -293,10 +255,7 @@ public class TextOutput {
 			r = true;
 		} else if(r) {
 			r = false;
-			charPos[index] = 17;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(17);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)){
@@ -304,10 +263,7 @@ public class TextOutput {
 			s = true;
 		} else if(s) {
 			s = false;
-			charPos[index] = 18;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(18);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_T)){
@@ -315,10 +271,7 @@ public class TextOutput {
 			t = true;
 		} else if(t) {
 			t = false;
-			charPos[index] = 19;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(19);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_U)){
@@ -326,10 +279,7 @@ public class TextOutput {
 			u = true;
 		} else if(u) {
 			u = false;
-			charPos[index] = 20;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(20);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_V)){
@@ -337,10 +287,7 @@ public class TextOutput {
 			v = true;
 		} else if(v) {
 			v = false;
-			charPos[index] = 21;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(21);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)){
@@ -348,10 +295,7 @@ public class TextOutput {
 			w = true;
 		} else if(w) {
 			w = false;
-			charPos[index] = 22;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(22);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_X)){
@@ -359,22 +303,15 @@ public class TextOutput {
 			x = true;
 		} else if(x) {
 			x = false;
-			charPos[index] = 23;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(23);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_Y)){
-			System.out.println("\ny");
 			keyDown = true;
 			y = true;
 		} else if(y) {
 			y = false;
-			charPos[index] = 24;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(24);
 		} 
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_Z)){
@@ -383,24 +320,50 @@ public class TextOutput {
 			z = true;
 		} else if(z) {
 			z = false;
-			charPos[index] = 25;
-			text[index].setxPos(flickerLine.getxPos());
-			index++;
-			flickerLine.setxPos(flickerLine.getxPos() + fontSize);
+			processKey(25);
 		} 
 		
+		
 		if(Keyboard.isKeyDown(Keyboard.KEY_BACK)){
+			if(backStart) {
+				beginTime = System.currentTimeMillis();
+				backStart = false;
+			}
+			System.out.println("down");
 			back = true;
+			checkBackSpace();
 		} else if(back) {
+			backStart = true;
 			back = false;
 			if(index > 0) {
 				flickerLine.setxPos(flickerLine.getxPos() - fontSize);
 				index--;
 			}
 		} 
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_RETURN)){
+			enter = true;
+		} else if(enter) {
+			enter = false;
+			finishCharacter();
+		} 
+		
 		if(keyDown) {
 			draw = true;
 		}
 	}
 	
+	public void checkBackSpace() {
+		if((System.currentTimeMillis() - beginTime) > 500 && index > 0) {
+			if((System.currentTimeMillis() - beginTime)%50 == 0) {
+				flickerLine.setxPos(flickerLine.getxPos() - fontSize);
+				index--;
+			}
+		}
+	}
+	
+	public void finishCharacter() {
+		CharacterSave s = new CharacterSave(charPos, index);
+		s.saveGame();
+	}
 }

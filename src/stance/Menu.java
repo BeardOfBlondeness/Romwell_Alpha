@@ -75,11 +75,17 @@ public class Menu {
 		}
 	}
 
-	public void draw() {
+	public void draw(boolean buttons) {
 		bg.draw(background);
-		drawButtons();
+		if(buttons) {
+			drawButtons();
+		}
+		
 	}
 
+	public Sprite getbg() {
+		return bg;
+	}
 	public Texture getTex() {
 		return tex;
 	}

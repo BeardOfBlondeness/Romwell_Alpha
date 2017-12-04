@@ -21,6 +21,9 @@ public class GameStance {
 		loadTextures();
 	}
 
+	public Menu getm() {
+		return m;
+	}
 	public void loadTextures() {
 		textures = new Texture[8];
 		textures[0] = loadTexture("res/menu/1.png", "PNG");
@@ -45,20 +48,23 @@ public class GameStance {
 	private boolean newGame = true;
 	private TitleSequence title;
 	
-	public void limitRenderFrames() {
+	public void limitRenderFrames(boolean buttons) {
 		frameCount=(frameCount+1)%3;
 		if(frameCount == 0) i=(i+1)%8;
 		m.setTex(textures[i]);
-		m.draw();
+		m.draw(buttons);
+		
+		
 	}
 	
 	public TitleSequence getTitleSequence() {
 		return title;
 	}
+	
 	public void checkStance() {
 		switch(stance) {
 		case "menu":
-			limitRenderFrames();
+			limitRenderFrames(true);
 			break;
 		case "newGame":
 			if(newGame) {
